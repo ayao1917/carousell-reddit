@@ -28,7 +28,17 @@ export default {
     return {
       topics: []
     }
-  }
+  },
+  watch: {
+    topics(newTopic) {
+      localStorage.setItem('topics', JSON.stringify(newTopic));
+    }
+  },
+  mounted() {
+    if (localStorage.topics) {
+      this.topics = JSON.parse(localStorage.getItem('topics'));
+    }
+  },
 }
 </script>
 
