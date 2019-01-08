@@ -9,7 +9,7 @@
               {{topic.content}}
             </p>
             <b-button variant="danger" @click="doVote(-1, topic)">-</b-button>
-            {{topic.vote}}
+            {{topic.votes}}
             <b-button variant="success" @click="doVote(1, topic)">+</b-button>
           </b-card>
         </b-col>
@@ -21,30 +21,29 @@
 </template>
 
 <script>
-export default {
-  components: {
-  },
-  data: () => {
-    return {
-      topics: []
-    }
-  },
-  watch: {
-    topics(newTopic) {
-      localStorage.setItem('topics', JSON.stringify(newTopic));
-    }
-  },
-  methods: {
-    doVote(vote, topic) {
-      topic.vote += vote;
-    }
-  },
-  mounted() {
-    if (localStorage.topics) {
-      this.topics = JSON.parse(localStorage.getItem('topics'));
-    }
-  },
-}
+  import { mapGetters } from 'vuex';
+
+  export default {
+    components: {
+    },
+    data: () => {
+      return {
+      }
+    },
+    computed:{
+      ...mapGetters({
+        topics: 'topic/getTopics',
+      }),
+    },
+    methods: {
+      doVote(vote, topic) {
+        let sum = topic.votes + vote;
+        this.$store.commit('topic/updateVote', {id: topic.id, votes: sum});
+      }
+    },
+    mounted() {
+    },
+  }
 </script>
 
 <style>
