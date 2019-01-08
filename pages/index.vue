@@ -8,9 +8,9 @@
             <p class="card-text">
               {{topic.content}}
             </p>
-            <b-button variant="danger" @click="">-</b-button>
+            <b-button variant="danger" @click="doVote(-1, topic)">-</b-button>
             {{topic.vote}}
-            <b-button variant="success" @click="">+</b-button>
+            <b-button variant="success" @click="doVote(1, topic)">+</b-button>
           </b-card>
         </b-col>
       </b-row>
@@ -32,6 +32,11 @@ export default {
   watch: {
     topics(newTopic) {
       localStorage.setItem('topics', JSON.stringify(newTopic));
+    }
+  },
+  methods: {
+    doVote(vote, topic) {
+      topic.vote += vote;
     }
   },
   mounted() {
