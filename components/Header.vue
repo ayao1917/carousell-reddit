@@ -8,7 +8,7 @@
           <template slot="button-content">
             <em>User</em>
           </template>
-          <b-dropdown-item @click="">My Topics</b-dropdown-item>
+          <b-dropdown-item @click="goTopicPage">My Topics</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
@@ -21,6 +21,9 @@
     methods: {
       goHomePage() {
         this.$router.push({name: 'index'});
+      },
+      goTopicPage() {
+        this.$router.push({name: 'user-topics'});
       },
     }
   }
