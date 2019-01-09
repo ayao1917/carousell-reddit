@@ -32,16 +32,25 @@
     },
     computed:{
       ...mapGetters({
-        topics: 'topic/getTopics',
+        getTopics: 'topic/getTopics',
       }),
+      topics() {
+        return this.getTopics.slice().sort((a, b) => {
+          if (a.votes < b.votes)
+            return 1;
+          if (a.votes > b.votes)
+            return -1;
+          return 0;
+        }).slice(0, 20);
+      }
     },
     methods: {
       doVote(vote, topic) {
         let sum = topic.votes + vote;
-        this.$store.commit('topic/updateVote', {id: topic.id, votes: sum});
+        this.$store.commit('topic/updateTopic', {id: topic.id, content: topic.content, votes: sum});
       }
     },
-    mounted() {
+    created() {
     },
   }
 </script>
