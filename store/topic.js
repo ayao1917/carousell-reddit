@@ -23,6 +23,7 @@ export const mutations = {
   },
   addTopic(state, data) {
     data.id = state.topics.length + 1
+    data.votes = 0
     state.topics.push(data);
   },
   updateTopic(state, data) {

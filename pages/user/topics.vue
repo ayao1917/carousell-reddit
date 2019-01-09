@@ -61,8 +61,11 @@
     },
     computed:{
       ...mapGetters({
-        topics: 'topic/getTopics',
+        getTopics: 'topic/getTopics',
       }),
+      topics() {
+        return JSON.parse(JSON.stringify(this.getTopics));
+      }
     },
     methods: {
       showAddModal() {
@@ -78,11 +81,15 @@
         this.$refs.topicModalRef.hide();
       },
       doAdd() {
+        this.$store.commit('topic/addTopic', this.topicForm);
+        this.$refs.topicModalRef.hide();
       },
       doEdit() {
+        this.$store.commit('topic/updateTopic', this.topicForm);
+        this.$refs.topicModalRef.hide();
       },
     },
-    mounted() {
+    created() {
     },
   }
 </script>
