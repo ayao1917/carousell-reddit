@@ -82,13 +82,36 @@
         this.$refs.topicModalRef.hide();
       },
       doAdd() {
+        let validateResult = this.validateForm();
+
+        if (!validateResult.success) {
+          alert(validateResult.reason);
+          return;
+        }
+
         this.$store.commit('topic/addTopic', this.topicForm);
         this.$refs.topicModalRef.hide();
       },
       doEdit() {
+        let validateResult = this.validateForm();
+
+        if (!validateResult.success) {
+          alert(validateResult.reason);
+          return;
+        }
+        
         this.$store.commit('topic/updateTopic', this.topicForm);
         this.$refs.topicModalRef.hide();
       },
+      validateForm() {
+        if (this.topicForm.content.length > 255) {
+          return {
+            success: false,
+            reason: 'content should not exceed 255'
+          };
+        }
+        return {success: true};
+      }
     },
     created() {
     },
