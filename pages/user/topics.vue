@@ -43,6 +43,7 @@
 
 <script>
   import { mapGetters } from 'vuex';
+  import Helper from '~/assets/js/helper';
 
   export default {
     name: "topics",
@@ -64,7 +65,7 @@
         getTopics: 'topic/getTopics',
       }),
       topics() {
-        return JSON.parse(JSON.stringify(this.getTopics));
+        return this.getTopics;
       }
     },
     methods: {
@@ -74,7 +75,7 @@
       },
       showEditModal(item) {
         this.modalType = 'edit';
-        this.topicForm = item;
+        this.topicForm = Helper.clone(item);
         this.$refs.topicModalRef.show();
       },
       hideModal() {
