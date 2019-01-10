@@ -99,7 +99,7 @@
           alert(validateResult.reason);
           return;
         }
-        
+
         this.$store.commit('topic/updateTopic', this.topicForm);
         this.$refs.topicModalRef.hide();
       },

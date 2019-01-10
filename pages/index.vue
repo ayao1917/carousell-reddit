@@ -3,15 +3,7 @@
     <b-container class="mt-3">
       <b-row>
         <b-col cols lg="4" v-for="topic in topics" v-bind:key="topic.id">
-          <b-card style="max-width: 20rem;"
-                  class="mb-2">
-            <p class="card-text">
-              {{topic.content}}
-            </p>
-            <b-button variant="danger" @click="doVote(-1, topic)">-</b-button>
-            {{topic.votes}}
-            <b-button variant="success" @click="doVote(1, topic)">+</b-button>
-          </b-card>
+          <TopicCard :topic="topic"></TopicCard>
         </b-col>
       </b-row>
       <b-jumbotron header="No Topics Found" v-if="topics.length === 0">
@@ -21,10 +13,12 @@
 </template>
 
 <script>
+  import TopicCard from '~/components/TopicCard';
   import { mapGetters } from 'vuex';
 
   export default {
     components: {
+      TopicCard
     },
     data: () => {
       return {
@@ -45,10 +39,6 @@
       }
     },
     methods: {
-      doVote(vote, topic) {
-        let sum = topic.votes + vote;
-        this.$store.commit('topic/updateTopic', {id: topic.id, content: topic.content, votes: sum});
-      }
     },
     created() {
     },
