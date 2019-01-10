@@ -4,9 +4,9 @@
     <p class="card-text">
       {{topic.content}}
     </p>
-    <b-button variant="danger" @click="doVote(-1, topic)">-</b-button>
+    <b-button class="down-vote" variant="danger" @click="doVote(-1, topic)">-</b-button>
     <span class="topic-votes">{{topic.votes}}</span>
-    <b-button variant="success" @click="doVote(1, topic)">+</b-button>
+    <b-button class="up-vote" variant="success" @click="doVote(1, topic)">+</b-button>
   </b-card>
 </template>
 
