@@ -1,7 +1,7 @@
 <template>
   <b-navbar toggleable="md" type="dark" variant="dark">
     <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-    <b-navbar-brand @click="goHomePage">Carousell-Reddit</b-navbar-brand>
+    <b-navbar-brand class="header-title" @click="goHomePage">Carousell-Reddit</b-navbar-brand>
     <b-collapse is-nav id="nav_collapse">
       <b-navbar-nav class="ml-auto">
         <b-nav-item-dropdown right>
@@ -30,5 +30,7 @@
 </script>
 
 <style scoped>
-
+.header-title {
+  cursor: pointer;
+}
 </style>

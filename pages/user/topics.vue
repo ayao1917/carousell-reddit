@@ -54,6 +54,7 @@
           { key: 'votes', label: 'Votes' },
           { key: 'actions', label: 'Actions' }
         ],
+        topics: [],
         topicForm: {
           content: ''
         },
@@ -64,9 +65,6 @@
       ...mapGetters({
         getTopics: 'topic/getTopics',
       }),
-      topics() {
-        return this.getTopics;
-      }
     },
     methods: {
       showAddModal() {
@@ -91,6 +89,7 @@
 
         this.$store.commit('topic/addTopic', this.topicForm);
         this.$refs.topicModalRef.hide();
+        this.getTopicList();
       },
       doEdit() {
         let validateResult = this.validateForm();
@@ -102,6 +101,7 @@
 
         this.$store.commit('topic/updateTopic', this.topicForm);
         this.$refs.topicModalRef.hide();
+        this.getTopicList();
       },
       validateForm() {
         if (this.topicForm.content.length > 255) {
@@ -111,9 +111,13 @@
           };
         }
         return {success: true};
-      }
+      },
+      getTopicList() {
+        this.topics = Helper.clone(this.getTopics);
+      },
     },
     created() {
+      this.getTopicList();
     },
   }
 </script>

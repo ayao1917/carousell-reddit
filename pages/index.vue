@@ -3,7 +3,7 @@
     <b-container class="mt-3">
       <b-row>
         <b-col cols lg="4" v-for="topic in topics" v-bind:key="topic.id">
-          <TopicCard :topic="topic"></TopicCard>
+          <TopicCard :topic="topic" @after-vote="getTopicList"></TopicCard>
         </b-col>
       </b-row>
       <b-jumbotron header="No Topics Found" v-if="topics.length === 0">
@@ -15,6 +15,7 @@
 <script>
   import TopicCard from '~/components/TopicCard';
   import { mapGetters } from 'vuex';
+  import Helper from '~/assets/js/helper';
 
   export default {
     components: {
@@ -22,14 +23,18 @@
     },
     data: () => {
       return {
+        topics: [],
       }
     },
     computed:{
       ...mapGetters({
         getTopics: 'topic/getTopics',
       }),
-      topics() {
-        return this.getTopics.slice().sort((a, b) => {
+    },
+    methods: {
+      getTopicList() {
+        const total = Helper.clone(this.getTopics);
+        this.topics = total.sort((a, b) => {
           if (a.votes < b.votes)
             return 1;
           if (a.votes > b.votes)
@@ -38,9 +43,8 @@
         }).slice(0, 20);
       }
     },
-    methods: {
-    },
     created() {
+      this.getTopicList();
     },
   }
 </script>

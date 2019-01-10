@@ -5,7 +5,7 @@
       {{topic.content}}
     </p>
     <b-button variant="danger" @click="doVote(-1, topic)">-</b-button>
-    <div class="topic-votes">{{topic.votes}}</div>
+    <span class="topic-votes">{{topic.votes}}</span>
     <b-button variant="success" @click="doVote(1, topic)">+</b-button>
   </b-card>
 </template>
@@ -18,6 +18,7 @@
       doVote(vote, topic) {
         let sum = topic.votes + vote;
         this.$store.commit('topic/updateTopic', {id: topic.id, content: topic.content, votes: sum});
+        this.$emit('after-vote');
       }
     },
   }
