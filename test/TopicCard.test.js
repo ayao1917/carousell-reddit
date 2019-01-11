@@ -1,5 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
+import BootstrapVue from 'bootstrap-vue'
 import TopicCard from '../components/TopicCard.vue';
 
 const topic = {
@@ -9,6 +10,7 @@ const topic = {
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
+localVue.use(BootstrapVue);
 
 describe('Test for TopicCard.vue', () => {
   let actions;
@@ -32,7 +34,7 @@ describe('Test for TopicCard.vue', () => {
   test('TopicCard.vue to display topic', () => {
     const wrapper = shallowMount(TopicCard, {
       propsData: { topic: topic },
-      stubs: ['b-card', 'b-button'],
+      localVue
     });
 
     const content = wrapper.find('.card-text');
@@ -45,7 +47,6 @@ describe('Test for TopicCard.vue', () => {
   test('TopicCard.vue can do vote', () => {
     const wrapper = shallowMount(TopicCard, {
       propsData: { topic: topic },
-      stubs: ['b-card', 'b-button'],
       store,
       localVue,
     });
