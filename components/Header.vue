@@ -1,18 +1,21 @@
 <template>
-  <b-navbar toggleable="md" type="dark" variant="dark">
-    <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-    <b-navbar-brand class="header-title" @click="goHomePage">Carousell-Reddit</b-navbar-brand>
-    <b-collapse is-nav id="nav_collapse">
-      <b-navbar-nav class="ml-auto">
-        <b-nav-item-dropdown right>
-          <template slot="button-content">
-            <em>User</em>
-          </template>
-          <b-dropdown-item @click="goTopicPage">My Topics</b-dropdown-item>
-        </b-nav-item-dropdown>
-      </b-navbar-nav>
-    </b-collapse>
-  </b-navbar>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <span class="navbar-brand">Carousell-Reddit</span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <span class="nav-link header-link" @click="goHomePage">Home</span>
+        </li>
+        <li class="nav-item active">
+          <span class="nav-link header-link" @click="goTopicPage">Topic Management</span>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </template>
 
 <script>
@@ -30,7 +33,7 @@
 </script>
 
 <style scoped>
-.header-title {
+.header-link {
   cursor: pointer;
 }
 </style>

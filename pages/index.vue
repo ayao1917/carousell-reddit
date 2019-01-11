@@ -1,15 +1,14 @@
 <template>
-  <section class="container">
-    <b-container class="mt-3">
-      <b-row>
-        <b-col cols lg="4" v-for="topic in topics" v-bind:key="topic.id">
-          <TopicCard :topic="topic" @after-vote="getTopicList"></TopicCard>
-        </b-col>
-      </b-row>
-      <b-jumbotron header="No Topics Found" v-if="topics.length === 0">
-      </b-jumbotron>
-    </b-container>
-  </section>
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col col-lg-4" v-for="topic in topics" v-bind:key="topic.id">
+        <TopicCard :topic="topic" @after-vote="getTopicList"></TopicCard>
+      </div>
+    </div>
+    <div class="jumbotron" v-if="topics.length === 0">
+      <h1 class="display-4">No Topics Found</h1>
+    </div>
+  </div>
 </template>
 
 <script>

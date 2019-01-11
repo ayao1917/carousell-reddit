@@ -1,24 +1,39 @@
 <template>
-  <b-container class="mt-3">
-    <b-row>
-      <b-col cols="10">
-        <h3>My Topics</h3>
-      </b-col>
-      <b-col>
-        <b-btn size="small" variant="primary" block @click="showAddModal">Add</b-btn>
-      </b-col>
-    </b-row>
-    <b-table class="mt-3" striped hover :items="topics" :fields="fields" v-if="topics.length !== 0">
-      <template slot="actions" slot-scope="row">
-        <b-button size="sm" @click.stop="showEditModal(row.item, row.index, $event.target)" class="mr-1">
-          Edit
-        </b-button>
-      </template>
-    </b-table>
-    <b-jumbotron header="No Topics Found" v-if="topics.length === 0">
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col col-10">
+        <h3>Topic Management</h3>
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-primary" @click="showAddModal">ADD</button>
+      </div>
+    </div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">Content</th>
+        <th scope="col">Votes</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="topic in topics" v-bind:key="topic.id">
+        <td>{{topic.content}}</td>
+        <td>{{topic.votes}}</td>
+        <td>
+          <b-button size="sm" @click.stop="showEditModal(topic)" class="mr-1">
+            Edit
+          </b-button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="jumbotron" v-if="topics.length === 0">
+      <h1 class="display-4">No Topics Found</h1>
       <p>Click here to add one</p>
       <b-btn variant="primary" @click="showAddModal">Add</b-btn>
-    </b-jumbotron>
+    </div>
 
     <b-modal ref="topicModalRef" hide-footer title="Add Topic">
       <div class="d-block text-center">
@@ -38,7 +53,7 @@
       <b-btn class="mt-5" variant="outline-primary" block @click="doEdit" v-if="modalType === 'edit'">Update</b-btn>
       <b-btn class="mt-3" variant="outline-danger" block @click="hideModal">Cancel</b-btn>
     </b-modal>
-  </b-container>
+  </div>
 </template>
 
 <script>
@@ -49,11 +64,6 @@
     name: "topics",
     data: () => {
       return {
-        fields: [
-          'content',
-          { key: 'votes', label: 'Votes' },
-          { key: 'actions', label: 'Actions' }
-        ],
         topics: [],
         topicForm: {
           content: ''
@@ -87,7 +97,7 @@
           return;
         }
 
-        this.$store.commit('topic/addTopic', this.topicForm);
+        this.$store.dispatch('topic/addTopic', this.topicForm);
         this.$refs.topicModalRef.hide();
         this.getTopicList();
       },
@@ -99,7 +109,7 @@
           return;
         }
 
-        this.$store.commit('topic/updateTopic', this.topicForm);
+        this.$store.dispatch('topic/updateTopic', this.topicForm);
         this.$refs.topicModalRef.hide();
         this.getTopicList();
       },

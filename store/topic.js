@@ -34,4 +34,13 @@ export const mutations = {
 };
 
 export const actions = {
+  updateAll({commit}, topics) {
+    commit('updateAll', topics);
+  },
+  addTopic({commit}, data) {
+    commit('addTopic', data);
+  },
+  updateTopic({commit}, data) {
+    commit('updateTopic', data);
+  },
 };
