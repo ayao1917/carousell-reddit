@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils';
+import { mount, shallowMount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
 import BootstrapVue from 'bootstrap-vue'
 import UserTopics from '../pages/user/topics.vue';
@@ -6,8 +6,6 @@ import UserTopics from '../pages/user/topics.vue';
 const localVue = createLocalVue();
 localVue.use(Vuex);
 localVue.use(BootstrapVue);
-
-const stubs = ['b-container', 'b-row', 'b-col', 'b-btn', 'b-table', 'b-jumbotron', 'b-modal', 'b-form', 'b-form-group', 'b-form-textarea'];
 
 const topics = [
   {
@@ -25,6 +23,7 @@ const topics = [
 ];
 
 describe('Test for page user/topics.vue', () => {
+  let actions;
   let getters;
   let store;
 
@@ -33,10 +32,16 @@ describe('Test for page user/topics.vue', () => {
       getTopics: () => topics,
     };
 
+    actions = {
+      addTopic: jest.fn(),
+      updateTopic: jest.fn(),
+    };
+
     store = new Vuex.Store({
       modules: {
         topic: {
           namespaced: true,
+          actions: actions,
           getters: getters
         }
       }
@@ -45,13 +50,30 @@ describe('Test for page user/topics.vue', () => {
 
   test('topics.vue to display topics', () => {
     const wrapper = shallowMount(UserTopics, {
-      stubs,
       store,
       localVue
     });
 
     const items = wrapper.findAll('tr').wrappers;
 
+    expect(wrapper.vm.topics.length).toBe(topics.length);
     expect(items.length).toBe(topics.length + 1);
+  });
+
+  test('topics.vue can set user to store', () => {
+    const wrapper = mount(UserTopics, {
+      store,
+      localVue
+    });
+
+    wrapper.setProps({
+      topicForm: {
+        'content': 'test',
+        'votes': 123
+      },
+    });
+
+    wrapper.vm.doAdd();
+    expect(actions.addTopic).toHaveBeenCalled();
   });
 });

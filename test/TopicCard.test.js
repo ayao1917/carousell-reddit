@@ -1,6 +1,5 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
-import BootstrapVue from 'bootstrap-vue'
 import TopicCard from '../components/TopicCard.vue';
 
 const topic = {
@@ -10,7 +9,6 @@ const topic = {
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
-localVue.use(BootstrapVue);
 
 describe('Test for TopicCard.vue', () => {
   let actions;
@@ -20,6 +18,7 @@ describe('Test for TopicCard.vue', () => {
     actions = {
       updateTopic: jest.fn(),
     };
+
     store = new Vuex.Store({
       modules: {
         topic: {
