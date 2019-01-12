@@ -32,11 +32,9 @@
       * <object> topic: the topic object
       * */
       doVote(vote, topic) {
-        let sum = topic.votes + vote;
+        topic.votes += vote;
         // store new vote to Vuex
-        this.$store.dispatch('topic/updateTopic', {id: topic.id, content: topic.content, votes: sum});
-        // call parent function
-        this.$emit('after-vote');
+        this.$store.dispatch('topic/updateTopic', topic);
       }
     },
   }

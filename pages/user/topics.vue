@@ -81,14 +81,6 @@
         getTopics: 'topic/getTopics',
       }),
     },
-    watch: {
-      /* we don't know when is init data in store is ready
-       * so we listen the getter and update topics if it change
-       */
-      getTopics (newCount, oldCount) {
-        this.getTopicList();
-      }
-    },
     methods: {
       showAddModal() {
         this.modalType = 'add';
