@@ -8,10 +8,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <span class="nav-link header-link" @click="goHomePage">Home</span>
+          <nuxt-link class="nav-link header-link" to="/">Home</nuxt-link>
         </li>
         <li class="nav-item active">
-          <span class="nav-link header-link" @click="goTopicPage">Topic Management</span>
+          <nuxt-link class="nav-link header-link" to="/user/topics">Topic Management</nuxt-link>
         </li>
       </ul>
     </div>
@@ -22,12 +22,6 @@
   export default {
     name: "Header",
     methods: {
-      goHomePage() {
-        this.$router.push({name: 'index'});
-      },
-      goTopicPage() {
-        this.$router.push({name: 'user-topics'});
-      },
     }
   }
 </script>

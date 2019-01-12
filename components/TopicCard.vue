@@ -19,7 +19,6 @@
     methods: {
       doVote(vote, topic) {
         let sum = topic.votes + vote;
-        console.log('click', sum);
         this.$store.dispatch('topic/updateTopic', {id: topic.id, content: topic.content, votes: sum});
         this.$emit('after-vote');
       }
