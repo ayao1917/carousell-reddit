@@ -1,3 +1,5 @@
+<!-- This page is the topic management page -->
+
 <template>
   <div class="container mt-3">
     <div class="row">
@@ -5,6 +7,7 @@
         <h3>Topic Management</h3>
       </div>
       <div class="col">
+        <!-- this btn will call show modal method -->
         <button type="button" class="btn btn-primary" @click="showAddModal">ADD</button>
       </div>
     </div>
@@ -29,12 +32,14 @@
       </tbody>
     </table>
 
+    <!-- show if there's no any topics -->
     <div class="jumbotron" v-if="topics.length === 0">
       <h1 class="display-4">No Topics Found</h1>
       <p>Click here to add one</p>
       <b-btn variant="primary" @click="showAddModal">Add</b-btn>
     </div>
 
+    <!-- the modal contains the topic form -->
     <b-modal ref="topicModalRef" hide-footer title="Add Topic">
       <div class="d-block text-center">
         <b-form>
@@ -68,7 +73,7 @@
         topicForm: {
           content: ''
         },
-        modalType: 'add',
+        modalType: 'add', // the param determine whether add/edit topic
       }
     },
     computed:{
@@ -83,6 +88,7 @@
       },
       showEditModal(item) {
         this.modalType = 'edit';
+        // we clone the topic object to prevent changing the origin topic
         this.topicForm = Helper.clone(item);
         this.$refs.topicModalRef.show();
       },
@@ -92,28 +98,36 @@
       doAdd() {
         let validateResult = this.validateForm();
 
+        // do form validation
         if (!validateResult.success) {
           alert(validateResult.reason);
           return;
         }
 
+        // store new topic to Vuex
         this.$store.dispatch('topic/addTopic', this.topicForm);
         this.$refs.topicModalRef.hide();
-        this.getTopicList();
+        this.getTopicList(); // reload topic list
       },
       doEdit() {
         let validateResult = this.validateForm();
 
+        // do form validation
         if (!validateResult.success) {
           alert(validateResult.reason);
           return;
         }
 
+        // update a topic to Vuex
         this.$store.dispatch('topic/updateTopic', this.topicForm);
         this.$refs.topicModalRef.hide();
-        this.getTopicList();
+        this.getTopicList(); // reload topic list
       },
+      /*
+      * validate the input topic is correct
+      * */
       validateForm() {
+        // the topic content should less than 255 character
         if (this.topicForm.content.length > 255) {
           return {
             success: false,
@@ -123,10 +137,12 @@
         return {success: true};
       },
       getTopicList() {
+        // clone topic list form store to prevent changing the origin topic in store
         this.topics = Helper.clone(this.getTopics);
       },
     },
     created() {
+      // load topics from store when the page created
       this.getTopicList();
     },
   }

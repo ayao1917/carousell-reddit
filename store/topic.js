@@ -1,33 +1,28 @@
 export const state = () => ({
-  topics: [],
+  topics: [], // the stored topics
 });
 
 export const getters = {
+  // get all topics
   getTopics(state) {
     return state.topics;
-  },
-  getHots(state) {
-    return state.topics.sort((a, b) => {
-      if (a.votes < b.votes)
-        return -1;
-      if (a.votes > b.votes)
-        return 1;
-      return 0;
-    }).slice(0, 20);
   },
 };
 
 export const mutations = {
+  // replace topics in state
   updateAll(state, topics) {
     state.topics = topics;
   },
+  // add one topic into state
   addTopic(state, data) {
-    data.id = state.topics.length + 1
-    data.votes = 0
+    data.id = state.topics.length + 1; // assign a increase id for ne topic
+    data.votes = 0;
     state.topics.push(data);
   },
+  // replace one topic which has same id with input topic
   updateTopic(state, data) {
-    let foundIndex = state.topics.findIndex(x => x.id === data.id);
+    let foundIndex = state.topics.findIndex(x => x.id === data.id); // find topic with a specific id
     state.topics[foundIndex].content = data.content;
     state.topics[foundIndex].votes = data.votes;
   },

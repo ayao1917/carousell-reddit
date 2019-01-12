@@ -1,6 +1,6 @@
 # carousell-reddit
 
-> Front-end for a Reddit like site
+> Front-End for a Reddit like Site
 
 ## Build Setup
 
@@ -17,6 +17,7 @@ $ yarn start
 
 # generate static project
 $ yarn run generate
-```
 
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+# testing the project
+$ yarn test
+```
