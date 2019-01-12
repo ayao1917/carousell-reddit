@@ -8,10 +8,10 @@
       </div>
       <div class="col">
         <!-- this btn will call show modal method -->
-        <button type="button" class="btn btn-primary" @click="showAddModal">ADD</button>
+        <button type="button" class="btn btn-primary" v-if="topics.length > 0" @click="showAddModal">ADD</button>
       </div>
     </div>
-    <table class="table table-striped">
+    <table class="table table-striped" v-if="topics.length > 0">
       <thead>
       <tr>
         <th scope="col">Content</th>
@@ -40,7 +40,7 @@
     </div>
 
     <!-- the modal contains the topic form -->
-    <b-modal ref="topicModalRef" hide-footer title="Add Topic">
+    <b-modal ref="topicModalRef" hide-footer :title="modalType === 'add' ? 'Add Topic': 'Update Topic'">
       <div class="d-block text-center">
         <b-form>
           <b-form-group label="Content"
@@ -80,6 +80,14 @@
       ...mapGetters({
         getTopics: 'topic/getTopics',
       }),
+    },
+    watch: {
+      /* we don't know when is init data in store is ready
+       * so we listen the getter and update topics if it change
+       */
+      getTopics (newCount, oldCount) {
+        this.getTopicList();
+      }
     },
     methods: {
       showAddModal() {
