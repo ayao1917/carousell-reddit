@@ -18,6 +18,7 @@
           <nuxt-link class="nav-link header-link" to="/user/topics">Topic Management</nuxt-link>
         </li>
       </ul>
+      <span class="navbar-text">Hi! User</span>
     </div>
   </nav>
 </template>
