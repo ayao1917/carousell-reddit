@@ -108,6 +108,7 @@
         this.$store.dispatch('topic/addTopic', this.topicForm);
         this.$refs.topicModalRef.hide();
         this.getTopicList(); // reload topic list
+        this.topicForm = { content: '' };
       },
       doEdit() {
         let validateResult = this.validateForm();
@@ -122,6 +123,7 @@
         this.$store.dispatch('topic/updateTopic', this.topicForm);
         this.$refs.topicModalRef.hide();
         this.getTopicList(); // reload topic list
+        this.topicForm = { content: '' };
       },
       /*
       * validate the input topic is correct

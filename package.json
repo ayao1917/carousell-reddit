@@ -19,7 +19,9 @@
     "cross-env": "^5.2.0",
     "express": "^4.16.3",
     "faker": "^4.1.0",
-    "nuxt": "^2.0.0"
+    "js-cookie": "^2.2.0",
+    "nuxt": "^2.0.0",
+    "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
     "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
