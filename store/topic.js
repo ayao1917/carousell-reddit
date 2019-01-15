@@ -26,6 +26,10 @@ export const mutations = {
     state.topics[foundIndex].content = data.content;
     state.topics[foundIndex].votes = data.votes;
   },
+  deleteTopic(state, id) {
+    let foundIndex = state.topics.findIndex(x => x.id === id); // find topic with a specific id
+    state.topics.splice(foundIndex);
+  }
 };
 
 export const actions = {
@@ -37,5 +41,8 @@ export const actions = {
   },
   updateTopic({commit}, data) {
     commit('updateTopic', data);
+  },
+  deleteTopic({commit}, id) {
+    commit('deleteTopic', id);
   },
 };

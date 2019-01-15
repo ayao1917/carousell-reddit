@@ -24,9 +24,8 @@
         <td>{{topic.content}}</td>
         <td>{{topic.votes}}</td>
         <td>
-          <b-button size="sm" @click.stop="showEditModal(topic)" class="mr-1">
-            Edit
-          </b-button>
+          <button type="button" class="btn btn-secondary btn-sm" @click="showEditModal(topic)">Edit</button>
+          <button type="button" class="btn btn-danger btn-sm" @click="doDelete(topic.id)">Delete</button>
         </td>
       </tr>
       </tbody>
@@ -36,7 +35,7 @@
     <div class="jumbotron" v-if="topics.length === 0">
       <h1 class="display-4">No Topics Found</h1>
       <p>Click here to add one</p>
-      <button type="button" class="btn btn-primary" @click="showAddModal">Add</button>
+      <button type="button" class="btn btn-primary" @click="showAddModal">ADD</button>
     </div>
 
     <!-- the modal contains the topic form -->
@@ -124,6 +123,12 @@
         this.$refs.topicModalRef.hide();
         this.getTopicList(); // reload topic list
         this.topicForm = { content: '' };
+      },
+      doDelete(id) {
+        if (confirm('Sure to delete this topic?')) {
+          this.$store.dispatch('topic/deleteTopic', id);
+          this.getTopicList(); // reload topic list
+        }
       },
       /*
       * validate the input topic is correct
