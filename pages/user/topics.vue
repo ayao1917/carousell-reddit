@@ -36,7 +36,7 @@
     <div class="jumbotron" v-if="topics.length === 0">
       <h1 class="display-4">No Topics Found</h1>
       <p>Click here to add one</p>
-      <b-btn variant="primary" @click="showAddModal">Add</b-btn>
+      <button type="button" class="btn btn-primary" @click="showAddModal">Add</button>
     </div>
 
     <!-- the modal contains the topic form -->
@@ -143,7 +143,7 @@
         this.topics = Helper.clone(this.getTopics);
       },
     },
-    created() {
+    mounted() {
       // load topics from store when the page created
       this.getTopicList();
     },
