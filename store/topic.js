@@ -16,7 +16,11 @@ export const mutations = {
   },
   // add one topic into state
   addTopic(state, data) {
-    data.id = state.topics.length + 1; // assign a increase id for ne topic
+    // find the max id in the topic list
+    const maxId = state.topics.length < 1 ? 0 : state.topics.reduce(function(prev, current) {
+      return (prev.id > current.id) ? prev : current
+    }).id;
+    data.id = maxId + 1; // assign a increase id for ne topic
     data.votes = 0;
     state.topics.push(data);
   },
@@ -28,7 +32,7 @@ export const mutations = {
   },
   deleteTopic(state, id) {
     let foundIndex = state.topics.findIndex(x => x.id === id); // find topic with a specific id
-    state.topics.splice(foundIndex);
+    state.topics.splice(foundIndex, 1);
   }
 };
 
